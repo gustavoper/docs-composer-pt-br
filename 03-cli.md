@@ -1,7 +1,8 @@
 # Interface - Linha de Comando
 
 
-A essa altura, você já aprendeu como utilizar a linha de comando para executar algumas coisas. 
+Provavelmente você já aprendeu como utilizar a linha de comando para executar algumas tarefas.
+
 Este capítulo relaciona todos os comandos disponíveis.
 
 Para conseguir ajuda, basta digitar `composer` ou `composer list` para ver a lista de comandos. O parâmetro `--help` pode te dar informações mais relevantes.
@@ -62,123 +63,97 @@ Caso não exista, o composer irá criar um, de acordo com a versão mais recente
 
 ### Opções
 
-* **--prefer-source:** Existem duas formas de se baixar um pacote: `source`
-  e `dist`. Para versões estáveis, o Composer irá usar o parâmetro `dist` por padrão.
+* **--prefer-source:** Existem duas formas de se baixar um pacote: `source` e `dist`. Para versões estáveis, o Composer irá usar o parâmetro `dist` por padrão.
   O `source` é um controle de versão de repositório. se o  `--prefer-source` está 
-  habilitado, composer will install from `source` if there is one. Isto é útil se você pensa em resolver um bugfix em um projeto e fazer um git clone da dependência, diretamente.
-
-
-  This is
-  useful if you want to make a bugfix to a project and get a local git
-  clone of the dependency directly.
-* **--prefer-dist:** Reverse of `--prefer-source`, composer will install
-  from `dist` if possible. This can speed up installs substantially on build
-  servers and other use cases where you typically do not run updates of the
-  vendors. It is also a way to circumvent problems with git if you do not
-  have a proper setup.
-* **--dry-run:** If you want to run through an installation without actually
-  installing a package, you can use `--dry-run`. This will simulate the
-  installation and show you what would happen.
-* **--dev:** Install packages listed in `require-dev` (this is the default behavior).
-* **--no-dev:** Skip installing packages listed in `require-dev`.
-* **--no-scripts:** Skips execution of scripts defined in `composer.json`.
-* **--no-plugins:** Disables plugins.
-* **--no-progress:** Removes the progress display that can mess with some
-  terminals or scripts which don't handle backspace characters.
-* **--optimize-autoloader (-o):** Convert PSR-0/4 autoloading to classmap to get a faster
-  autoloader. This is recommended especially for production, but can take
-  a bit of time to run so it is currently not done by default.
+  habilitado, composer irá instalar da `source` (origem), se houver. Isto é útil se você pensa em resolver um bugfix em um projeto e fazer um git clone da dependência, diretamente.
+* **--prefer-dist:** É o inverso de `--prefer-source`: O Composer irá instalar do
+   `dist`, se possível. Isto pode tornar as instalações mais rápidas em servidores de integração e em outros cenários onde você geralmente não roda os updates dos 'vendors'. Também é uma forma de contornar problemas com o git se você não possui um setup adequado.
+* **--dry-run:** Se você quer apenas 'rodar' o instalador sem necessariamente instalar um pacote, você pode usar a opção `--dry-run`. Ela simula uma instalação e lhe mostrar o que aconteceria (caso a instalação fosse executada de fato).
+* **--dev:** Instala os pacotes listados em  `require-dev` (comportamento padrão).
+* **--no-dev:** Pula a instalação dos pacotes listados em `require-dev`.
+* **--no-scripts:** Pula a execução dos scripts listados em  `composer.json`.
+* **--no-plugins:** Desabilita os plugins.
+* **--no-progress:** Remove o display de progresso (em alguns terminais/scripts, a barra de prograsso pode causar problemas, especialmente os que não lidam com o 'backspace')
+* **--optimize-autoloader (-o):** Converte o autoloading PSR-0/4 para obter um autoloader mais rápido. Isto é recomendado especialmete no ambiente de produção, mas pode demandar um tempo maior de execução (esta opção não é executada, por padrão)
 
 ## update
 
-In order to get the latest versions of the dependencies and to update the
-`composer.lock` file, you should use the `update` command.
+Para obter as últimas versões das dependências e atualizar o arquivo `composer.lock`, use o comando `update`:
+
 
 ```sh
 php composer.phar update
 ```
 
-This will resolve all dependencies of the project and write the exact versions
-into `composer.lock`.
+Ele irá resolver todas as dependências do projeto e gravar as versões exatas no `composer.lock`.
 
-If you just want to update a few packages and not all, you can list them as such:
+Se você quer apenas atualizar alguns pacotes (mas não todos), você pode listá-los:
 
 ```sh
 php composer.phar update vendor/package vendor/package2
 ```
 
-You can also use wildcards to update a bunch of packages at once:
+Você pode utilizar *wildcards* (caracteres-coringa) para atualizar alguns pacotes, de uma vez só:
 
 ```sh
 php composer.phar update vendor/*
 ```
 
-### Options
+### Opções
 
-* **--prefer-source:** Install packages from `source` when available.
-* **--prefer-dist:** Install packages from `dist` when available.
-* **--dry-run:** Simulate the command without actually doing anything.
-* **--dev:** Install packages listed in `require-dev` (this is the default behavior).
-* **--no-dev:** Skip installing packages listed in `require-dev`.
-* **--no-scripts:** Skips execution of scripts defined in `composer.json`.
-* **--no-plugins:** Disables plugins.
-* **--no-progress:** Removes the progress display that can mess with some
-  terminals or scripts which don't handle backspace characters.
-* **--optimize-autoloader (-o):** Convert PSR-0/4 autoloading to classmap to get a faster
-  autoloader. This is recommended especially for production, but can take
-  a bit of time to run so it is currently not done by default.
-* **--lock:** Only updates the lock file hash to suppress warning about the
-  lock file being out of date.
-* **--with-dependencies** Add also all dependencies of whitelisted packages to the whitelist.
-  So all packages with their dependencies are updated recursively.
+* **--prefer-source:** Instala pacotes de `source` quando disponíveis.
+* **--prefer-dist:** Instala pacotes de `dist` quando disponíveis.
+* **--dry-run:** Executa o comando mas não faz nada (simula).
+* **--dev:** Instala pacotes listados em `require-dev` (comportamento padrão).
+* **--no-dev:** Pula a instalação de pacotes listados em `require-dev`.
+* **--no-scripts:** Pula a execução de scripts listados no `composer.json`.
+* **--no-plugins:** Desabilita os plugins.
+* **--no-progress:** Remove o diplay de progresso 
+* **--optimize-autoloader (-o):** Converte o autoloading PSR-0/4 para obter um autoloader mais rápido. Isto é recomendado especialmete no ambiente de produção, mas pode demandar um tempo maior de execução (esta opção não é executada, por padrão)
+* **--lock:** Apenas atualiza o hash do arquivo de lock para suprimir alertas sobre a validade (out-of-date) do mesmo
+* **--with-dependencies** Adiciona também todas as dependências dos pacotes para a whitelist (desde que sejam marcados como "whitelisted"). Desta forma, a atualização das mesmas é feita de forma recursiva.
 
 ## require
 
-The `require` command adds new packages to the `composer.json` file from
-the current directory.
+O comando `require` adiciona novos pacotes ao arquivo `composer.json` do diretório atual.
 
 ```sh
 php composer.phar require
 ```
 
-After adding/changing the requirements, the modified requirements will be
-installed or updated.
+Após adicionar/alterar os requisitos, os mesmos que foram modificados serão instalados ou alterados.
 
-If you do not want to choose requirements interactively, you can just pass them
-to the command.
+Se você prefere não escolher os requisitos de forma interativa, basta passá-los através do comando:
 
 ```sh
 php composer.phar require vendor/package:2.* vendor/package2:dev-master
 ```
 
-### Options
+### Opções
 
-* **--prefer-source:** Install packages from `source` when available.
-* **--prefer-dist:** Install packages from `dist` when available.
-* **--dev:** Add packages to `require-dev`.
-* **--no-update:** Disables the automatic update of the dependencies.
-* **--no-progress:** Removes the progress display that can mess with some
-  terminals or scripts which don't handle backspace characters.
-* **--update-with-dependencies** Also update dependencies of the newly
-  required packages.
+* **--prefer-source:** Instala pacotes de `source` quando disponíveis.
+* **--prefer-dist:** Instala pacotes de `dist` quando disponíveis.
+* **--dev:** Instala pacotes listados em `require-dev` (comportamento padrão).
+* **--no-update:** Desabilita o update automático das dependências
+* **--no-progress:** Remove o diplay de progresso 
+* **--update-with-dependencies** Adiciona também as dependências dos novos pacotes requeridos.
+
+
 
 ## global
 
-The global command allows you to run other commands like `install`, `require`
-or `update` as if you were running them from the [COMPOSER_HOME](#composer-home)
-directory.
 
-This can be used to install CLI utilities globally and if you add
-`$COMPOSER_HOME/vendor/bin` to your `$PATH` environment variable. Here is an
-example:
+Este comando permite rodar outros comandos (`install`, `require`
+or `update`) como se você estivesse executando-os do diretório definido por [COMPOSER_HOME](#composer-home)
+
+Pode ser usado para instalar utilitários CLI de forma global  se você adicionar o parâmetro 
+`$COMPOSER_HOME/vendor/bin` a sua variável de ambiente`$PATH`. Exemplo:
 
 ```sh
 php composer.phar global require fabpot/php-cs-fixer:dev-master
 ```
 
-Now the `php-cs-fixer` binary is available globally (assuming you adjusted
-your PATH). If you wish to update the binary later on you can just run a
-global update:
+Agora o binário `php-cs-fixer` está disponível de forma global (assumindo que você ajustou a variável PATH). Se você deseja atualizar o binário mais tarde, basta  executar um update global:
 
 ```sh
 php composer.phar global update
@@ -186,23 +161,22 @@ php composer.phar global update
 
 ## search
 
-The search command allows you to search through the current project's package
-repositories. Usually this will be just packagist. You simply pass it the
-terms you want to search for.
+O comando search permite que você faça uma busca através dos repositórios do pacote do projeto atual. Geralmente é apenas o packagist. 
+Basta simplesmente passar os termos de busca:
 
 ```sh
 php composer.phar search monolog
 ```
 
-You can also search for more than one term by passing multiple arguments.
+Você pode também buscar por mais de um termo, passando vários argumentos.
 
-### Options
+### Opções
 
-* **--only-name (-N):** Search only in name.
+* **--only-name (-N):** Busca apenas pelo nome.
 
 ## show
 
-To list all of the available packages, you can use the `show` command.
+Para exibir a lista de todos os pacotes disponíveis, você pode usar o comando `show`.
 
 ```sh
 php composer.phar show
@@ -239,13 +213,13 @@ php composer.phar show monolog/monolog 1.0.2
 
 ### Options
 
-* **--installed (-i):** List the packages that are installed.
-* **--platform (-p):** List only platform packages (php & extensions).
+* **--installed (-i):** List the pacotes that are installed.
+* **--platform (-p):** List only platform pacotes (php & extensions).
 * **--self (-s):** List the root package info.
 
 ## depends
 
-The `depends` command tells you which other packages depend on a certain
+The `depends` command tells you which other pacotes depend on a certain
 package. You can specify which link types (`require`, `require-dev`)
 should be included in the listing. By default both are used.
 
@@ -377,7 +351,7 @@ of the vendors.
 
 There are several applications for this:
 
-1. You can deploy application packages.
+1. You can deploy application pacotes.
 2. You can check out any package and start developing on patches for example.
 3. Projects with multiple developers can use this feature to bootstrap the
    initial application for development.
@@ -395,17 +369,17 @@ php composer.phar create-project doctrine/orm path 2.2.*
 It is also possible to run the command without params in a directory with an
 existing `composer.json` file to bootstrap a project.
 
-By default the command checks for the packages on packagist.org.
+By default the command checks for the pacotes on packagist.org.
 
 ### Options
 
 * **--repository-url:** Provide a custom repository to search for the package,
   which will be used instead of packagist. Can be either an HTTP URL pointing
-  to a `composer` repository, or a path to a local `packages.json` file.
+  to a `composer` repository, or a path to a local `pacotes.json` file.
 * **--stability (-s):** Minimum stability of package. Defaults to `stable`.
-* **--prefer-source:** Install packages from `source` when available.
-* **--prefer-dist:** Install packages from `dist` when available.
-* **--dev:** Install packages listed in `require-dev`.
+* **--prefer-source:** Install pacotes from `source` when available.
+* **--prefer-dist:** Install pacotes from `dist` when available.
+* **--dev:** Install pacotes listed in `require-dev`.
 * **--no-install:** Disables installation of the vendors.
 * **--no-plugins:** Disables plugins.
 * **--no-scripts:** Disables the execution of the scripts defined in the root
@@ -422,7 +396,7 @@ If you need to update the autoloader because of new classes in a classmap
 package for example, you can use "dump-autoload" to do that without having to
 go through an install or update.
 
-Additionally, it can dump an optimized autoloader that converts PSR-0/4 packages
+Additionally, it can dump an optimized autoloader that converts PSR-0/4 pacotes
 into classmap ones for performance reasons. In large applications with many
 classes, the autoloader can take up a substantial portion of every request's
 time. Using classmaps for everything is less convenient in development, but
