@@ -182,8 +182,7 @@ Para exibir a lista de todos os pacotes disponíveis, você pode usar o comando 
 php composer.phar show
 ```
 
-If you want to see the details of a certain package, you can pass the package
-name.
+Se você quer ver detalhes de um pacote específico, você pode informar o nome do mesmo:
 
 ```sh
 php composer.phar show monolog/monolog
@@ -204,8 +203,7 @@ requires
 php >=5.3.0
 ```
 
-You can even pass the package version, which will tell you the details of that
-specific version.
+Inclusive, você pode informar a versão do pacote e serão exibidos os detalhes dessa versão específica:
 
 ```sh
 php composer.phar show monolog/monolog 1.0.2
@@ -213,15 +211,16 @@ php composer.phar show monolog/monolog 1.0.2
 
 ### Options
 
-* **--installed (-i):** List the pacotes that are installed.
-* **--platform (-p):** List only platform pacotes (php & extensions).
-* **--self (-s):** List the root package info.
+* **--installed (-i):** Lista pacotes instalados
+* **--platform (-p):**  Apenas os pacotes de plataforma (php & extensões).
+* **--self (-s):**  Lista a informação de pacotes raiz.
 
 ## depends
 
-The `depends` command tells you which other pacotes depend on a certain
-package. You can specify which link types (`require`, `require-dev`)
-should be included in the listing. By default both are used.
+O comando 
+
+
+O comando `depends` indica quais outros pacotes dependem de um certo pacote. Você pode dizer quais tipos de links (`require`, `require-dev`) devem ser incluidos. Por padrão, ambos são utilizados.
 
 ```sh
 php composer.phar depends --link-type=require monolog/monolog
@@ -233,37 +232,31 @@ symfony/monolog-bridge
 symfony/symfony
 ```
 
-### Options
+### Opções
 
-* **--link-type:** The link types to match on, can be specified multiple
-  times.
+* **--link-type:** Tipos de links correspondentes. Podem ser especificados diversas vezes.
 
 ## validate
 
-You should always run the `validate` command before you commit your
-`composer.json` file, and before you tag a release. It will check if your
-`composer.json` is valid.
+Você deve sempre rodar o comando `validate` antes de enviar o seu arquivo `composer.json` e antes de marcar um release. Este comando irá verificar se seu `composer.json` é válido.
 
 ```sh
 php composer.phar validate
 ```
 
-### Options
+### Opções
 
-* **--no-check-all:** Wether or not composer do a complete validation.
+* **--no-check-all:** Faz ou não uma validação completa.
 
 ## status
 
-If you often need to modify the code of your dependencies and they are
-installed from source, the `status` command allows you to check if you have
-local changes in any of them.
+Se você não precisa modificar o código-fonte de suas dependências e elas são instaladas da fonte, o comando `status` permite a você checar se houve alterações em alguma delas (localmente).
 
 ```sh
 php composer.phar status
 ```
 
-With the `--verbose` option you get some more information about what was
-changed:
+Com a opção `--verbose` são exibidas mais informações do que foi alterado.
 
 ```sh
 php composer.phar status -v
@@ -275,69 +268,57 @@ vendor/seld/jsonlint:
 
 ## self-update
 
-To update composer itself to the latest version, just run the `self-update`
-command. It will replace your `composer.phar` with the latest version.
+Para atualizar o composer para a versão mais atual, basta executar o comando `self-update`. Ele irá substituir o seu `composer.phar` para a versão mais atual.
 
 ```sh
 php composer.phar self-update
 ```
 
-If you would like to instead update to a specific release simply specify it:
+Se, ao invés disso, você quiser atualizar para um release específico:
 
 ```sh
 php composer.phar self-update 1.0.0-alpha7
 ```
 
-If you have installed composer for your entire system (see [global installation](00-intro.md#globally)),
-you may have to run the command with `root` privileges
+Se você instalou o composer de forma global, você deve rodar o comando com privilégios de `root`:
 
 ```sh
 sudo composer self-update
 ```
 
-### Options
+### Opções
 
-* **--rollback (-r):** Rollback to the last version you had installed.
-* **--clean-backups:** Delete old backups during an update. This makes the current version of composer the only backup available after the update.
+* **--rollback (-r):** Rollback para a versão anterior
+* **--clean-backups:** Exclui os backups antigos durante um update. Desta forma, a versão atual é o último backup disponível.
 
 ## config
 
-The `config` command allows you to edit some basic composer settings in either
-the local composer.json file or the global config.json file.
+O comando `config` permite você editar algumas configs básicas do composer tanto no `composer.json` (local) quanto no `config.json` (global).
 
 ```sh
 php composer.phar config --list
 ```
 
-### Usage
+### Como utilizar
 
 `config [options] [setting-key] [setting-value1] ... [setting-valueN]`
 
-`setting-key` is a configuration option name and `setting-value1` is a
-configuration value.  For settings that can take an array of values (like
-`github-protocols`), more than one setting-value arguments are allowed.
+Onde `setting-key`  é um nome de opção de config  `setting-value1` é o respectivo valor. Para opções que necesistam de um array de valores (
+`github-protocols`), é permitido mais de um argumento do tipo "setting-value".
 
-See the [config schema section](04-schema.md#config) for valid configuration
-options.
+Dê uma olhada em [config schema section](04-schema.md#config) para maiores informações (e configs válidas).
 
-### Options
+### Opções
 
-* **--global (-g):** Operate on the global config file located at
-`$COMPOSER_HOME/config.json` by default.  Without this option, this command
-affects the local composer.json file or a file specified by `--file`.
-* **--editor (-e):** Open the local composer.json file using in a text editor as
-defined by the `EDITOR` env variable.  With the `--global` option, this opens
-the global config file.
-* **--unset:** Remove the configuration element named by `setting-key`.
-* **--list (-l):** Show the list of current config variables.  With the `--global`
- option this lists the global configuration only.
-* **--file="..." (-f):** Operate on a specific file instead of composer.json. Note
- that this cannot be used in conjunction with the `--global` option.
+* **--global (-g):**  Trabalha com o arquivo de config global localizado em `$COMPOSER_HOME/config.json`  por padrão. Sem esta opção,  este comando  afeta o `composer.json` local ou outro, especificado por `--file`.
+* **--editor (-e):** Abre o `composer.json` local usando um editor de texto definido pela variável de ambiente `EDITOR` . Com a opção `--global` o arquivo global será exibido.
+* **--unset:** Remove o parâmetro de configuração definido por `setting-key`.
+* **--list (-l):** Exibe a lista de variáveis atuais. Através da opção `--global`, será listado apenas o arquivo global.
+* **--file="..." (-f):**  Trabalha num arquivo em específico ao invés do `composer.json` Esta opção não pode ser utilizada em conjunto com a opção `--global`.
 
-### Modifying Repositories
+### Modificando repositórios
 
-In addition to modifying the config section, the `config` command also supports making
-changes to the repositories section by using it the following way:
+Além de alterar a parte de configurações, através do  `config` você pode também fazer alterações na parte de repositórios, da seguinte forma:
 
 ```sh
 php composer.phar config repositories.foo vcs http://github.com/foo/bar
@@ -345,37 +326,29 @@ php composer.phar config repositories.foo vcs http://github.com/foo/bar
 
 ## create-project
 
-You can use Composer to create new projects from an existing package. This is
-the equivalent of doing a git clone/svn checkout followed by a composer install
-of the vendors.
+Você pode usar o Composer para criar novos projetos a partir de um pacote já existente. Isto equivale a fazer um *git clone/svn checkout* seguido de um `composer install`.
 
-There are several applications for this:
+Esta opção pode ser útil de diversas formas:
 
-1. You can deploy application pacotes.
-2. You can check out any package and start developing on patches for example.
-3. Projects with multiple developers can use this feature to bootstrap the
-   initial application for development.
+1.  Você pode fazer o deploy de pacotes de aplicativos;
+2.  Você pode baixar qualquer pacote e desenvolver patches para ele, por exemplo;
+3.  Projetos com vários desenvolvedores podem usar esta feature para inicializar a aplicação no inicio do desenvolvimento.
 
-To create a new project using composer you can use the "create-project" command.
-Pass it a package name, and the directory to create the project in. You can also
-provide a version as third argument, otherwise the latest version is used.
-
-If the directory does not currently exist, it will be created during installation.
+Para criar um novo projeto utilizando o composer, você pode usar o comando "create-project". Especifique um nome de pacote e o diretório ao qual o projeto será criado.
+Você pode também especificar um número de versão como terceiro argumento, do contrário, será utilizado o da última versão.
+Se o diretório não existe, ele será criado durante a instalação.
 
 ```sh
 php composer.phar create-project doctrine/orm path 2.2.*
 ```
 
-It is also possible to run the command without params in a directory with an
-existing `composer.json` file to bootstrap a project.
+Também é possível rodar o comando sem parâmetros num diretório que tenha o arquivo `composer.json` para inicializar o projeto.
 
-By default the command checks for the pacotes on packagist.org.
+Por padrão, o comando checa os pacotes no packagist.org.
 
-### Options
+### Opções
 
-* **--repository-url:** Provide a custom repository to search for the package,
-  which will be used instead of packagist. Can be either an HTTP URL pointing
-  to a `composer` repository, or a path to a local `pacotes.json` file.
+* **--repository-url:** Fornece um repositório personalizado para procurar pelo pacote, que será usado ao invés do packagist. Pode ser uma URL apontando para um diretório remoto do `composer`, ou um caminho para o arquivo `packages.json`
 * **--stability (-s):** Minimum stability of package. Defaults to `stable`.
 * **--prefer-source:** Install pacotes from `source` when available.
 * **--prefer-dist:** Install pacotes from `dist` when available.
@@ -508,60 +481,47 @@ The env var accepts domains, IP addresses, and IP address blocks in CIDR
 notation. You can restrict the filter to a particular port (e.g. `:80`). You
 can also set it to `*` to ignore the proxy for all HTTP requests.
 
-### HTTP_PROXY_REQUEST_FULLURI
-
-If you use a proxy but it does not support the request_fulluri flag, then you
-should set this env var to `false` or `0` to prevent composer from setting the
-request_fulluri option.
-
 ### HTTPS_PROXY_REQUEST_FULLURI
 
-If you use a proxy but it does not support the request_fulluri flag for HTTPS
-requests, then you should set this env var to `false` or `0` to prevent composer
-from setting the request_fulluri option.
+Se você utiliza um proxy mas ele não suporta a flag request_fulluri  para requisições HTTPS
+requests, então você deve definir esta varíavel para `false` ou `0` para não deixar que o composer defina-a para `true`, por padrão.
 
 ### COMPOSER_HOME
 
-The `COMPOSER_HOME` var allows you to change the composer home directory. This
-is a hidden, global (per-user on the machine) directory that is shared between
-all projects.
+A varíavel `COMPOSER_HOME` permite mudar o diretório padrão do Composer. Este diretório é oculto, global (por usuário na máquina) e compartilhado entre todos os projetos.
 
-By default it points to `/home/<user>/.composer` on \*nix,
-`/Users/<user>/.composer` on OSX and
-`C:\Users\<user>\AppData\Roaming\Composer` on Windows.
+Por padrão, ele aponta para `/home/<user>/.composer` no \*nix,
+`/Users/<user>/.composer` no OSX e 
+`C:\Users\<user>\AppData\Roaming\Composer` no Windows.
 
 #### COMPOSER_HOME/config.json
 
-You may put a `config.json` file into the location which `COMPOSER_HOME` points
-to. Composer will merge this configuration with your project's `composer.json`
-when you run the `install` and `update` commands.
+Você pode inserir um arquivo `config.json` no caminho apontado por `COMPOSER_HOME`. O Composer irá fazer um "merge" deste arquivo com o `composer.json` do projeto, quando você executar um comando `update` e/ou `install`.
 
-This file allows you to set [configuration](04-schema.md#config) and
-[repositories](05-repositories.md) for the user's projects.
+Este arquivo permite definir algumas [configurações](04-schema.md#config) e
+[repositórios](05-repositories.md)  para o projeto do usuário.
 
-In case global configuration matches _local_ configuration, the _local_
-configuration in the project's `composer.json` always wins.
+Caso o arquivo de configuração _global_ conflitar com o arquivo de configuração _local_, o Composer dará preferência ao segundo.
 
 ### COMPOSER_CACHE_DIR
 
-The `COMPOSER_CACHE_DIR` var allows you to change the composer cache directory,
-which is also configurable via the [`cache-dir`](04-schema.md#config) option.
+A variável `COMPOSER_CACHE_DIR`  permite alterar o diretório de cache do composer, também configurável via [`cache-dir`](04-schema.md#config).
 
-By default it points to $COMPOSER_HOME/cache on \*nix and OSX, and
-`C:\Users\<user>\AppData\Local\Composer` (or `%LOCALAPPDATA%/Composer`) on Windows.
+Por padrão,  ela é apontada para $COMPOSER_HOME/cache no \*nix / OSX, e
+`C:\Users\<user>\AppData\Local\Composer` (or `%LOCALAPPDATA%/Composer`) no Windows.
 
 ### COMPOSER_PROCESS_TIMEOUT
 
-This env var controls the time composer waits for commands (such as git
-commands) to finish executing. The default value is 300 seconds (5 minutes).
+Esta variável de ambiente controla o tempo de timeout do composer, ou seja, o tempo que o composer espera por cada comando para finalizar/prosseguir a execução. O valor padrão é de 300 segundos (05 minutos).
+
 
 ### COMPOSER_DISCARD_CHANGES
 
-This env var controls the discard-changes [config option](04-schema.md#config).
+Esta variável controla a opção [discard-changes] (04-schema.md#config).
 
 ### COMPOSER_NO_INTERACTION
 
-If set to 1, this env var will make composer behave as if you passed the
-`--no-interaction` flag to every command. This can be set on build boxes/CI.
+Se denifido como 1, esta variável fará o composer se comportar como se você tivesse definido, para todo o comando, a flag 
+`--no-interaction` . Ela pode ser definido em build boxes/CI.
 
 &larr; [Libraries](02-libraries.md)  |  [Schema](04-schema.md) &rarr;
