@@ -452,27 +452,27 @@ not be guessed from VCS info and is not present in `composer.json`.
 
 ### COMPOSER_VENDOR_DIR
 
-By setting this var you can make composer install the dependencies into a
-directory other than `vendor`.
+Definindo essa variável você pode fazer com que o composer instale as dependências dentro de um diretório diferente do padrão (`vendor`).
 
 ### COMPOSER_BIN_DIR
 
-By setting this option you can change the `bin` ([Vendor Binaries](articles/vendor-binaries.md))
-directory to something other than `vendor/bin`.
+Definindo essa opção, você pode alterar o diretório `bin` ([Vendor Binaries](articles/vendor-binaries.md))
+para algo diferente de `vendor/bin`.
 
 ### http_proxy or HTTP_PROXY
 
-If you are using composer from behind an HTTP proxy, you can use the standard
-`http_proxy` or `HTTP_PROXY` env vars. Simply set it to the URL of your proxy.
-Many operating systems already set this variable for you.
+Se você utiliza o composer por um proxy HTTP, você pode utilizar a variável `http_proxy` ou a varíavel de ambiemnte `HTTP_PROXY`. Simplesmente defina-a para a URL do seu proxy.
+Diversos sistemas operacionais já definem esta variável para você.
 
-Using `http_proxy` (lowercased) or even defining both might be preferable since
+
+Usando `http_proxy` (em minusculas) ou mesmo or even defining both might be preferable since
 some tools like git or curl will only use the lower-cased `http_proxy` version.
 Alternatively you can also define the git proxy using
 `git config --global http.proxy <proxy url>`.
 
 ### no_proxy
 
+Se você está em um proxy e deseja desabilitá-lo para domínios
 If you are behind a proxy and would like to disable it for certain domains, you
 can use the `no_proxy` env var. Simply set it to a comma separated list of
 domains the proxy should *not* be used for.
