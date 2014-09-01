@@ -50,7 +50,7 @@ php composer.phar init
 
 ## install
 
-O comando `install` lê o arquivo `composer.json`  do diretório corrente, trata as dependências e instala-as no diretório `vendor`.
+O comando `install` lê o arquivo `composer.json`  do diretório atual, trata as dependências e instala-as no diretório `vendor`.
 
 ```sh
 php composer.phar install
@@ -123,7 +123,7 @@ php composer.phar require
 
 Após adicionar/alterar os requisitos, os mesmos que foram modificados serão instalados ou alterados.
 
-Se você prefere não escolher os requisitos de forma interativa, basta passá-los através do comando:
+Se você não quer escolher os requisitos de forma interativa, basta passá-los através do comando:
 
 ```sh
 php composer.phar require vendor/package:2.* vendor/package2:dev-master
@@ -314,7 +314,7 @@ Dê uma olhada em [config schema section](04-schema.md#config) para maiores info
 * **--editor (-e):** Abre o `composer.json` local usando um editor de texto definido pela variável de ambiente `EDITOR` . Com a opção `--global` o arquivo global será exibido.
 * **--unset:** Remove o parâmetro de configuração definido por `setting-key`.
 * **--list (-l):** Exibe a lista de variáveis atuais. Através da opção `--global`, será listado apenas o arquivo global.
-* **--file="..." (-f):**  Trabalha num arquivo em específico ao invés do `composer.json` Esta opção não pode ser utilizada em conjunto com a opção `--global`.
+* **--file="..." (-f):**  Trabalha num arquivo em específcado no composer.json` Esta opção não pode ser utilizada em conjunto com a opção `--global`.
 
 ### Modificando repositórios
 
@@ -349,55 +349,38 @@ Por padrão, o comando checa os pacotes no packagist.org.
 ### Opções
 
 * **--repository-url:** Fornece um repositório personalizado para procurar pelo pacote, que será usado ao invés do packagist. Pode ser uma URL apontando para um diretório remoto do `composer`, ou um caminho para o arquivo `packages.json`
-* **--stability (-s):** Minimum stability of package. Defaults to `stable`.
-* **--prefer-source:** Install pacotes from `source` when available.
-* **--prefer-dist:** Install pacotes from `dist` when available.
-* **--dev:** Install pacotes listed in `require-dev`.
-* **--no-install:** Disables installation of the vendors.
-* **--no-plugins:** Disables plugins.
-* **--no-scripts:** Disables the execution of the scripts defined in the root
-  package.
-* **--no-progress:** Removes the progress display that can mess with some
-  terminals or scripts which don't handle backspace characters.
-* **--keep-vcs:** Skip the deletion of the VCS metadata for the created
-  project. This is mostly useful if you run the command in non-interactive
-  mode.
+* **--stability (-s):** Versão mínima estável.
+* **--prefer-source:**  Instala pacotes da fonte (source) quando disponível.
+* **--prefer-dist:** Instala pacotes de `dist` quando disponíveis.
+* **--dev:** Instala pacotes listados em `require-dev`.
+* **--no-install:** Desabilita a instalação dos distribuidores (vendors).
+* **--no-plugins:** Desabilita os plugins.
+* **--no-scripts:** Desabilita a execução de scripts definidos no pacote raiz.
+* **--no-progress:** Retira o indicador de progresso.
+* **--keep-vcs:** Pula a exclusão de metadata do VCS para o projeto criado. Útil se você estiver executando o comando no modo não-interativo.
 
 ## dump-autoload
 
-If you need to update the autoloader because of new classes in a classmap
-package for example, you can use "dump-autoload" to do that without having to
-go through an install or update.
+Se você precisa atualizar o autoloader por conta de novas classes no pacote de classmap, por exemplo, você pode usar o *dump-autoload* para fazer isto sem precisar passar por uma instalação ou atualização.
 
-Additionally, it can dump an optimized autoloader that converts PSR-0/4 pacotes
-into classmap ones for performance reasons. In large applications with many
-classes, the autoloader can take up a substantial portion of every request's
-time. Using classmaps for everything is less convenient in development, but
-using this option you can still use PSR-0/4 for convenience and classmaps for
-performance.
+Este comando também permite criar um dump do autoloader, de forma automática, que converte os pacotes no padrão PSR-0/4 em *classmaps* por questões de performance. Em aplicações maiores com muitas classes, o autoloader pode tomar uma porção substancial de tempo para cada requisição. Usando *classmaps* para tudo é menos conveniente no desenvolvimento, mas utilizando esse recurso, você pode continuar utilizando o padrão PSR-0/4 por conveniência e *classmaps* para melhorar a perfomance. 
 
 ### Options
 
-* **--optimize (-o):** Convert PSR-0/4 autoloading to classmap to get a faster
-  autoloader. This is recommended especially for production, but can take
-  a bit of time to run so it is currently not done by default.
-* **--no-dev:** Disables autoload-dev rules.
+* **--optimize (-o):** Converte um autoloader no padrão PSR-0/4 para um *classmap* para obter um autoloader mais ráṕido. Recomendamos especialmente para deploy em produção, mas esta opção costuma consumir maior recurso de processamento e portanto, não é habilitada por padrão.
+* **--no-dev:** Desabilita regras do  autoload-dev.
 
 ## licenses
 
-Lists the name, version and license of every package installed. Use
-`--format=json` to get machine readable output.
+Lista o nome, versão e licença de cada pacote instalado. Você pode definir o formato de saída (json) através do parâmetro `--format=json`.
 
 ## run-script
 
-To run [scripts](articles/scripts.md) manually you can use this command,
-just give it the script name and optionally --no-dev to disable the dev mode.
+Para rodar os [scripts](articles/scripts.md) de forma manual, você pode utilizar este comando. Basta dar o nome do script e definir a opção --no-dev (opcional) para desabilitar o modo dev.
 
 ## diagnose
 
-If you think you found a bug, or something is behaving strangely, you might
-want to run the `diagnose` command to perform automated checks for many common
-problems.
+Se você encontrou um bug, ou alguma coisa não está funcionando corretamente, você pode rodar o comando `diagnose`para fazer checks automatizados, para tentar resolver alguns problemas comuns.
 
 ```sh
 php composer.phar diagnose
@@ -405,9 +388,8 @@ php composer.phar diagnose
 
 ## archive
 
-This command is used to generate a zip/tar archive for a given package in a
-given version. It can also be used to archive your entire project without
-excluded/ignored files.
+Este comando é usado para gerar um zip/tar de um dado pacote em uma certa versão. Pode ser também utilizado para comprimir/armazenar todo o seu projeto, sem os arquivos excluídos/ignorados. 
+
 
 ```sh
 php composer.phar archive vendor/package 2.0.21 --format=zip
@@ -415,31 +397,28 @@ php composer.phar archive vendor/package 2.0.21 --format=zip
 
 ### Options
 
-* **--format (-f):** Format of the resulting archive: tar or zip (default:
+* **--format (-f):** Formato do arquivo de saída: tar or zip (default:
   "tar")
-* **--dir:** Write the archive to this directory (default: ".")
+* **--dir:** Gravar o arquivo neste diretório (default: ".")
 
 ## help
 
-To get more information about a certain command, just use `help`.
+Para obter maior informação sobre um comando, basta usar o `help`.
 
 ```sh
 php composer.phar help install
-```
+``
 
 ## Environment variables
 
-You can set a number of environment variables that override certain settings.
-Whenever possible it is recommended to specify these settings in the `config`
-section of `composer.json` instead. It is worth noting that the env vars will
-always take precedence over the values specified in `composer.json`.
+Você pode definir certas variáveis de ambientes que irão sobrescrever algumas definições padrão. Assim que possível, recomendamos definir essas configs na seção `config` do arquivo `composer.json`. Vale a pena notar que estas variáveis tem precedência sobre as variáveis definidar no `composer.json`. 
+
 
 ### COMPOSER
 
-By setting the `COMPOSER` env variable it is possible to set the filename of
-`composer.json` to something else.
+Definindo a variável de ambiente `COMPOSER` é possível definir o nome do arquivo `composer.json para um outro qualquer.
 
-For example:
+Exemplo:
 
 ```sh
 COMPOSER=composer-other.json php composer.phar install
@@ -447,8 +426,7 @@ COMPOSER=composer-other.json php composer.phar install
 
 ### COMPOSER_ROOT_VERSION
 
-By setting this var you can specify the version of the root package, if it can
-not be guessed from VCS info and is not present in `composer.json`.
+Definindo essa variável você pode definir a versão do pacote raíz, se ela não puder ser definida atraves de informações do VCS e não estiver presente no arquivo `composer.json`.
 
 ### COMPOSER_VENDOR_DIR
 
@@ -465,21 +443,14 @@ Se você utiliza o composer por um proxy HTTP, você pode utilizar a variável `
 Diversos sistemas operacionais já definem esta variável para você.
 
 
-Usando `http_proxy` (em minusculas) ou mesmo or even defining both might be preferable since
-some tools like git or curl will only use the lower-cased `http_proxy` version.
-Alternatively you can also define the git proxy using
+Usando `http_proxy` (em minusculas) ou mesmo ambos, pode ser melhor pois algumas ferramentas (git, curl) irão apenas usar a versão *lower-case* do `http_proxy`. Você pode também definir o proxy para o git usando: 
 `git config --global http.proxy <proxy url>`.
 
 ### no_proxy
 
-Se você está em um proxy e deseja desabilitá-lo para domínios
-If you are behind a proxy and would like to disable it for certain domains, you
-can use the `no_proxy` env var. Simply set it to a comma separated list of
-domains the proxy should *not* be used for.
+Se você está em um proxy e deseja desabilitá-lo para alguns domínios, você pode usar a variável de ambiente `no_proxy`. Basta defini-la numa lista de valores separados por vírgula de domínios que o proxy não deve utilizar.
 
-The env var accepts domains, IP addresses, and IP address blocks in CIDR
-notation. You can restrict the filter to a particular port (e.g. `:80`). You
-can also set it to `*` to ignore the proxy for all HTTP requests.
+Esta variável de ambiente aceita domínios, endereços IP, e blocos de IP na notação CIDR. Você pode restringir a uma porta em particular (e.x. `:80`). Você pode também usar o `\* para ignorar o proxy para todas as requisições HTTP.
 
 ### HTTPS_PROXY_REQUEST_FULLURI
 
@@ -521,7 +492,7 @@ Esta variável controla a opção [discard-changes] (04-schema.md#config).
 
 ### COMPOSER_NO_INTERACTION
 
-Se denifido como 1, esta variável fará o composer se comportar como se você tivesse definido, para todo o comando, a flag 
+Caso denifido como 1, esta variável fará o composer se comportar como se você tivesse definido, para todo o comando, a flag 
 `--no-interaction` . Ela pode ser definido em build boxes/CI.
 
 &larr; [Libraries](02-libraries.md)  |  [Schema](04-schema.md) &rarr;
